@@ -12,7 +12,7 @@ require_once('scripts/data.php');
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <title>YuniMovie</title>
-		<link rel="stylesheet" href="./styles/mystyle.css">
+		<link rel="stylesheet" href="./styles/style.css">
   </head>
   <body>
 	<header>
@@ -26,21 +26,23 @@ require_once('scripts/data.php');
     <div class="container">
       <div class="content">
         <?php foreach($movies as $movie): ?>
-        <h1><?php echo $movie->getId().":".$movie->getTitle(); ?></h1>
-        <video playsinline preload="none" poster="<?php echo $movie->getThumbnail(); ?>" controls>
-          <source src="<?php echo $movie->getSource(); ?>">
-        </video>
-        <div class="viewCount">
-          視聴回数：<?php echo $movie->getViewCount(); ?>
-        </div>
-        <div class="upLoadDate">
-          投稿日：<?php echo $movie->getUpLoadDate(); ?>
-        </div>
-        <hr>
-        <p class="explanation">
-          <?php echo $movie->getExplanation(); ?>
-        </p>
-        <hr>
+          <h1>
+            <?php echo $movie->getId().":".$movie->getTitle(); ?>
+          </h1>
+          <video playsinline preload="none" poster="<?php echo $movie->getThumbnail(); ?>" controls>
+            <source src="<?php echo $movie->getUrl(); ?>">
+          </video>
+          <div class="viewCount">
+            視聴回数：<?php echo $movie->getViewCount(); ?>
+          </div>
+          <div class="upLoadDate">
+            投稿日：<?php echo $movie->getUpLoadDate(); ?>
+          </div>
+          <hr>
+          <p class="explanation">
+            <?php echo $movie->getExplanation(); ?>
+          </p>
+          <div class="border"></div>
         <?php endforeach ?>
       </div>
     </div>

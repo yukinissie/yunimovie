@@ -2,7 +2,6 @@ header {
     height: 75px;
     border-bottom: 1px gray solid;
     margin-bottom: 10px;
-    
 }
 
 .site-logo {
@@ -15,4 +14,11 @@ header {
 video {
     width:345px;
     height:205px;
+}
+
+.border {
+    border-bottom: 1px gray solid;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
 }

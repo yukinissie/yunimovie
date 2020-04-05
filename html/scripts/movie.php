@@ -4,16 +4,16 @@ class Movie
 {
 	private $id;
 	private $title;
-	private $source;
+	private $url;
 	private $thumbnail;
 	private $explanation;
 	private $upLoadDate;
 	private $viewCount;
 
-	public function __construct($id, $title, $source, $thumbnail, $explanation, $upLoadDate, $viewCount) {
+	public function __construct($id, $title, $url, $thumbnail, $explanation, $upLoadDate, $viewCount) {
 		$this->id = $id;
 		$this->title = $title;
-		$this->source = $source;
+		$this->url = $url;
 		$this->thumbnail = $thumbnail;
 		$this->explanation = $explanation;
 		$this->upLoadDate = $upLoadDate;
@@ -26,8 +26,8 @@ class Movie
 	public function getTitle() {
 		return $this->title;
 	}
-	public function getSource() {
-		return $this->source;
+	public function getUrl() {
+		return $this->url;
 	}
 	public function getThumbnail() {
 		return $this->thumbnail;
@@ -36,7 +36,7 @@ class Movie
 		return $this->explanation;
 	}
 	public function getUpLoadDate() {
-		return date("Y/m/d", strtotime($this->upLoadDate));
+		return date("Y/m/d H:i:s", strtotime($this->upLoadDate));
 	}
 	public function getViewCount() {
 		return $this->viewCount;
