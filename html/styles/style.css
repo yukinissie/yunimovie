@@ -22,3 +22,7 @@ video {
     margin-bottom: 20px;
     width: 100%;
 }
+
+.post {
+    background-color: #ccc;
+}
