@@ -1,5 +1,5 @@
 <?php
-class DBManager
+class DatabaseManager
 {
   private static $dsn = 'mysql:host=localhost;dbname=yunimovie;charset=utf8mb4';
   private static $user = 'root';

@@ -1,14 +1,12 @@
 <?php
 require_once('scripts/data.php');
 ?>
-
 <!doctype html>
 <html lang="ja">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <title>YuniMovie</title>
@@ -24,14 +22,16 @@ require_once('scripts/data.php');
   </header>
   <div class="post">
     <div class="container">
-      <form method="post">
-        <input type="text" name="title" value="タイトル" id="title"><br>
-        <textarea name="explanation" cols="40" rows="5" id="explanation">説明文</textarea><br>
+      <form method="post" enctype="multipart/form-data" id="post_movie">
         動画：<br>
-        <input type="file" name="url" id="url"><br>
+        <input type="file" accept="video/*" multiple name="movie" id="movie"><br>
         サブネイル：<br>
-        <input type="file" name="thumbnail" id="thumbnail"><br>
-        <div id="send">投稿</div>
+        <input type="file" accept="image/png, image/jpeg, image/gif" multiple name="thumbnail" id="thumbnail"><br>
+        タイトル：<br>
+        <textarea name="title" cols="40" rows="1" id="title" placeholder="タイトルを入力してください"></textarea><br>
+        説明文：<br>
+        <textarea name="explanation" cols="40" rows="5" id="explanation" placeholder="説明文を入力してください"></textarea><br>
+        <button type="button" id="send">アップロード</button>
       </form>
     </div>
   </div>
@@ -45,7 +45,7 @@ require_once('scripts/data.php');
     <div class="container">
       <div class="content">
         <?php foreach($movies as $movie): ?>
-          <form method="post">
+          <form method="post" enctype="multipart/form-data">
             <h1>
               <?php echo $movie->getId().":".$movie->getTitle(); ?>
             </h1>

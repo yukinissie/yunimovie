@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+  app:
+    container_name: yunimovie_php
+    build:
+      context: ./php
+      dockerfile: Dockerfile
+    tty: true
+    volumes:
+      - ./php/php.ini:/usr/local/etc/php/php.ini
+      - ./html:/var/www/html
+      - ./var/run/mysqld/:/var/run/mysqld/
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+  db:
+    container_name: yunimovie_mysql
+    build:
+      context: ./mysql
+      dockerfile: Dockerfile
+    tty: true
+    restart: always
+    volumes:
+      - ./db/mysql_init:/docker-entrypoint-initdb.d
+      - ./db/mysql_data:/var/lib/mysql
+      - ./db/mysql_conf/:/etc/mysql/conf.d
+      - ./var/run/mysqld/:/var/run/mysqld/
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=yunimovie
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+      - TZ=Asia/Tokyo
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=db
+      - PMA_USER=root
+      - PMA_PASSWORD=root
+    depends_on:
+      - db
+    ports:
+      - 4040:80
+    volumes:
+      - ./phpmyadmin/sessions:/sessions
+      - ./phpmyadmin/phpmyadmin:/var/www/html

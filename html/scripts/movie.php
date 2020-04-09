@@ -4,17 +4,17 @@ class Movie
 {
 	private $id;
 	private $title;
-	private $url;
-	private $thumbnail;
+	private $url_movie;
+	private $url_thumbnail;
 	private $explanation;
 	private $upLoadDate;
 	private $viewCount;
 
-	public function __construct($id, $title, $url, $thumbnail, $explanation, $upLoadDate, $viewCount) {
+	public function __construct($id, $title, $url_movie, $url_thumbnail, $explanation, $upLoadDate, $viewCount) {
 		$this->id = $id;
 		$this->title = $title;
-		$this->url = $url;
-		$this->thumbnail = $thumbnail;
+		$this->url_movie = $url_movie;
+		$this->url_thumbnail = $url_thumbnail;
 		$this->explanation = $explanation;
 		$this->upLoadDate = $upLoadDate;
 		$this->viewCount = $viewCount;
@@ -27,10 +27,10 @@ class Movie
 		return $this->title;
 	}
 	public function getUrl() {
-		return $this->url;
+		return $this->url_movie;
 	}
 	public function getThumbnail() {
-		return $this->thumbnail;
+		return $this->url_thumbnail;
 	}
 	public function getExplanation() {
 		return $this->explanation;

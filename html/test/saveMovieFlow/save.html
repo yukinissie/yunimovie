@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+      function file_upload()
+  {
+    // フォームデータを取得
+    var formdata = new FormData($('#my_form').get(0));
+
+    // POSTでアップロード
+    $.ajax({
+      url  : "./upMovieTest.php",
+      type : "POST",
+      data : formdata,
+      cache       : false,
+      contentType : false,
+      processData : false,
+      dataType    : "html"
+    })
+    .done(function(data, textStatus, jqXHR){
+      alert(data);
+    })
+    .fail(function(jqXHR, textStatus, errorThrown){
+      alert("fail");
+    });
+  }
+  </script>
+</head>
+<body>
+  <form method="POST" action="upMovieTest.php" enctype="multipart/form-data"  id="my_form">
+  
+    <input type="file" name="upmovie" accept="video/*" id="movie">
+    <input type="file" name="upimg" accept="image/*" id="thumbnail">
+    <button type="button" onclick="file_upload()">アップロード</button>
+  
+  </form>
+  <div id="result"></div>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script>
+$(function() {
+
+});
+</script>
+</body>
+</html>

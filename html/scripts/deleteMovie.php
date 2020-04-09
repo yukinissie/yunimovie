@@ -1,7 +1,7 @@
 <?php
 require_once('databaseManager.php');
 
-class DeleteMovie extends DBManager
+class DeleteMovie extends DatabaseManager
 {
   public function delete($id) {
     $dbh = self::conectDB();
