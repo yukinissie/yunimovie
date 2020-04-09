@@ -27,7 +27,6 @@
 - 動画の投稿＆削除ができるようになった
 
 ### MIT-LICENSE
-
-Copyright (c) 2020 Yuki Nishi
-Released under the MIT license
+Copyright (c) 2020 Yuki Nishi<br>
+Released under the MIT license<br>
 https://github.com/yukinissie/YuniMovie/blob/master/MIT-LICENSE.txt
