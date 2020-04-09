@@ -29,4 +29,5 @@
 ### MIT-LICENSE
 Copyright (c) 2020 Yuki Nishi
 Released under the MIT license
-https://github.com/yukinissie/YuniMovie/MIT-LICENSE.txt
+
+https://github.com/yukinissie/YuniMovie/blob/master/MIT-LICENSE.txt
