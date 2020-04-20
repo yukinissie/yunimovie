@@ -1,30 +1,52 @@
 <?php
+require_once('dataManager.php');
 require_once('databaseManager.php');
 
-class DeleteMovie extends DatabaseManager
+class DeleteMovie
 {
-  public function delete($id) {
-    $dbh = self::conectDB();
-    self::checkConectDB($dbh);
-    //Ajaxによるリクエストかどうかの識別を先に行う
-    if(self::checkAjaxRequestIntegrity() == FALSE) {
-      die();
-      return 'This access is not valid.';
+  private $id;
+  private $dbh;
+
+  public function __construct($id) {
+    $this->id = DataManager::hsc($id);
+    $this->delete();
+  }
+
+  private function delete() {
+    if(DataManager::checkAjaxRequestIntegrity() == FALSE) {
+      die('This access is not valid.');
     }
-    if(!(isset($_POST['id']))) {
-      die();
-      return 'The parameter of "id" is not found.';
+    $this->dbh = DatabaseManager::getHandle();
+    DatabaseManager::checkConectDB($this->dbh);
+    self::onFileSystem();
+    self::onDatabase();
+    $this->dbh = null;
+    die();
+  }
+
+  private function onFileSystem() {
+    $sql = 'select * from movie where id = :delete_id';
+    $stmt = $this->dbh->prepare($sql);
+    $flag = $stmt->execute(array(':delete_id' => $this->id));
+    if($flag === FALSE) {
+      die('削除：データベース読込失敗<br>\n');
     }
+    $movies_data[] = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($movies_data[0] == null) {
+      die('削除：読込失敗<br>\n');
+    }
+    unlink("{$movies_data[0]['url_movie']}");
+    unlink("{$movies_data[0]['url_thumbnail']}");
+    echo '削除：ファイルシステムからの削除成功<br>\n';
+  }
+  private function onDatabase() {
     $sql = 'delete from movie where id = :delete_id';
-    $stmt = $dbh->prepare($sql);
-    $flag = $stmt->execute(array(':delete_id' => $id));
-    if($flag) {
-      $dbh = null;
-      return 'データの削除に成功しました<br>';
-    } else {
-      die();
-      return 'データの削除に失敗しました<br>';
+    $stmt = $this->dbh->prepare($sql);
+    $flag = $stmt->execute(array(':delete_id' => $this->id));
+    if($flag === FALSE) {
+      die('削除：データベースからの削除失敗<br>\n');
     }
+    echo '削除：データベースからの削除成功<br>\n';
   }
 }
 
@@ -33,8 +55,5 @@ class DeleteMovie extends DatabaseManager
 //このページでechoしたものがhtmlに返されて出力される
 header("Content-type: text/plain; charset=UTF-8");
 
-$delete =  new DeleteMovie();
+new DeleteMovie($_POST['id']);
 
-$id = $delete->hsc($_POST['id']);
-echo $id;
-echo $delete->delete($id);

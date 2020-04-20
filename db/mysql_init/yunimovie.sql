@@ -11,7 +11,10 @@ CREATE TABLE movie (
   viewCount INT(11) NOT NULL,
   PRIMARY KEY (id)
 );
+CREATE TABLE user (
+  id INT(11) AUTO_INCREMENT NOT NULL,
+  name VARCHAR(64) NOT NULL CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  password VARCHAR(64) NOT NULL CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  PRIMARY KEY (id)
+);
 
-INSERT INTO movie VALUES (null,'MyPortfolio', '../movie/admin/MyProject.mp4', 'img/admin/mq2.jpg', 'これは、テストの説明文です。これは、テストの説明文です。これは、テストの説明文です。これは、テストの説明文です。', '2020-04-01 08:12:20', 2);
-INSERT INTO movie VALUES (null,'MyPortfolio', '../movie/admin/MyProject.mp4', 'img/admin/mq2.jpg', 'これは、テストの説明文です。これは、テストの説明文です。これは、テストの説明文です。これは、テストの説明文です。', '2020-04-02 12:20:01', 4);
-INSERT INTO movie VALUES (null,'MyPortfolio', '../movie/admin/MyProject.mp4', 'img/admin/mq2.jpg', 'これは、テストの説明文です。これは、テストの説明文です。これは、テストの説明文です。これは、テストの説明文です。', '2020-04-03 22:10:13', 8);

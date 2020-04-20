@@ -1,31 +1,23 @@
 <?php
 require_once('movie.php');
-require_once('jsonManager.php');
 require_once('databaseManager.php');
 
 class DataManager
 {
-  private static function crateMovieInstance() {
-    $movies_data = DatabaseManager::loadMoviesData();
-    for($i=0; $i<count($movies_data); $i++) {
-      $movies[] = new Movie(
-        $movies_data[$i]['id'], 
-        $movies_data[$i]['title'], 
-        $movies_data[$i]['url_movie'], 
-        $movies_data[$i]['url_thumbnail'], 
-        $movies_data[$i]['explanation'], 
-        $movies_data[$i]['upLoadDate'], 
-        $movies_data[$i]['viewCount']
-      );
+  public function hsc($str){
+    return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
+  }
+  public function checkAjaxRequestIntegrity() {
+    if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {  
+      return true;
     }
-    return $movies;
+    return false;
   }
-
-  public static function getMovies() {
-    return self::crateMovieInstance();
-  }
-  public static function getMoviesReversed() {
-    return array_reverse(self::crateMovieInstance());
+  public function upLoadResult($result, $type) {
+    if ($result === false) {
+      return 'UPLOAD '.$type.'FAILE<br>\n';
+    }
+    return 'UPLOAD OK<br>\n';
   }
 }
 

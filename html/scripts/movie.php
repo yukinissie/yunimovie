@@ -9,8 +9,9 @@ class Movie
 	private $explanation;
 	private $upLoadDate;
 	private $viewCount;
+	private $userId;
 
-	public function __construct($id, $title, $url_movie, $url_thumbnail, $explanation, $upLoadDate, $viewCount) {
+	public function __construct($id, $title, $url_movie, $url_thumbnail, $explanation, $upLoadDate, $viewCount, $userId) {
 		$this->id = $id;
 		$this->title = $title;
 		$this->url_movie = $url_movie;
@@ -18,6 +19,7 @@ class Movie
 		$this->explanation = $explanation;
 		$this->upLoadDate = $upLoadDate;
 		$this->viewCount = $viewCount;
+		$this->userId = $userId;
 	}
 
 	public function getId() {
@@ -40,6 +42,9 @@ class Movie
 	}
 	public function getViewCount() {
 		return $this->viewCount;
+	}
+	public function getUserId() {
+		return $this->userId;
 	}
 }
 

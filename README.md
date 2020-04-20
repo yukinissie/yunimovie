@@ -26,6 +26,14 @@
 #### 2020 4/9
 - 動画の投稿＆削除ができるようになった
 
+#### 2020 4/20
+- CSRF対策
+- HTMLファイルのテンプレート化
+- ログイン機能の実装
+  - 投稿ユーザーの登録機能
+  - 投稿したユーザーと動画の紐付け
+- UIの整備
+
 ### MIT-LICENSE
 Copyright (c) 2020 Yuki Nishi<br>
 Released under the MIT license<br>

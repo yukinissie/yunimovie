@@ -1,122 +1,62 @@
 <?php
+require_once('dataManager.php');
+require_once('movieManager.php');
+require_once('thumbnailManager.php');
 require_once('databaseManager.php');
 require_once('user.php');
+require_once('CSRFMeasures.php');
 
-
-class PostMovie extends DatabaseManager
+class PostMovie
 {
-  private $movie_name;
-  private $thumbnail_name;
-  private $tmp_movie_name;
-  private $tmp_thumbnail_name;
-  private $movie_type;
-  private $thumbnail_type;
-  private $title;
   private $url_movie;
   private $url_thumbnail;
+  private $title;
   private $explanatuon;
   private $user;
-  private $date;
 
-  public function __construct($title, $explanatuon, $tmp_movie_name, $tmp_thumbnail_name, $movie_type, $thumbnail_type, $user) {
-    $this->title = $title;
-    $this->explanatuon = $explanatuon;
-    $this->tmp_movie_name = $tmp_movie_name;
-    $this->tmp_thumbnail_name = $tmp_thumbnail_name;
-    $this->movie_type = $movie_type;
-    $this->thumbnail_type = $thumbnail_type;
+  public function __construct($title, $explanatuon, $tmp_movie_name, $tmp_thumbnail_name, $movie_type, $thumbnail_type,  $user) {
+    $this->title = DataManager::hsc($title);
+    $this->explanatuon = DataManager::hsc($explanatuon);
     $this->user = $user;
-    $this->date = date("YmdHis");
-
+    $date = date("YmdHis");
+    $movieManager = new MovieManager($tmp_movie_name, $movie_type, $date, $this->user);
+    $thumbnailManager = new ThumbnailManager($tmp_thumbnail_name, $thumbnail_type, $date, $this->user);
     // 保存用の名前に変換
-    $this->setMovieName();
-    $this->setThumbnailName();
+    $movieManager->generateNameMovie();
+    $thumbnailManager->generateNameThumbnail();
     // 変換済みのデータをファイルシステム上に保存
-    $this->upLoadMovie();
-    $this->upLoadThumbnail();
+    $movieManager->saveOnServerMovie();
+    $thumbnailManager->saveOnServerThumbnail();
     // 保存したファイルのパスを作成
-    $this->setUrlMovie();
-    $this->setUrlThumbnail();
+    $this->url_movie = $movieManager->generateFilePathMovie();
+    $this->url_thumbnail = $thumbnailManager->generateFilePathThumbnail();
     // 各種データをデータベース上に挿入
     $this->post();
   }
-  private function setMovieName() {
-    $this->movie_name = $this->date.'.mp4';
-  }
-  private function setThumbnailName() {
-    $this->thumbnail_name = $this->date.'.'.$this->getType();
-  }
-  private function getType() {
-    switch($this->thumbnail_type) {
-      case 'image/gif' : return 'gif'; break;
-      case 'image/jpeg' : return 'jpeg'; break;
-      case 'image/png' : return 'png'; break;
-    }
-  }
-  private function upLoadMovie() {
-    if($this->movie_type === 'video/mp4') {
-      $result = move_uploaded_file($this->tmp_movie_name, '../movie/'.$this->user->getName().'/'.$this->movie_name);
-      echo $this->upLoadResult($result, 'MP4 MOVIE');
-    } else {
-      $result = $this->toMP4();
-      echo $this->upLoadResult($result, 'MOVIE');
-    }
-  }
-  private function upLoadThumbnail() {
-    $result = move_uploaded_file($this->tmp_thumbnail_name, '../img/'.$this->user->getName().'/'.$this->thumbnail_name);
-    echo $this->upLoadResult($result, 'IMAGE');
-  }
-  private function upLoadResult($result, $type) {
-    if ($result === false) {
-      return 'UPLOAD '.$type.'FAILE<br>\n';
-    }
-    // return 'UPLOAD OK<br>\n';
-  }
-  private function toMP4() {
-    // print 'converting<br>\n';
-    $result = shell_exec('ffmpeg -i '.$this->tmp_movie_name.' -pix_fmt yuv420p ../movie/'.$this->user->getName().'/'.$this->date.'.mp4');
-    print 'converted<br>\n';
-    return $this->convertedResult($result);
-  }
-  private function convertedResult($result) {
-    if($result !== null) {
-      print 'CONVERT FALSE<br>\n';
-      return false;
-    }
-    // print 'CONVERT OK<br>\n';
-    return true;
-  }
-  private function setUrlMovie() {
-    $this->url_movie = '../movie/'.$this->user->getName().'/'.$this->movie_name;
-  }
-  private function setUrlThumbnail() {
-    $this->url_thumbnail = '../img/'.$this->user->getName().'/'.$this->thumbnail_name;
-  }
   private function post() {
-    //Ajaxによるリクエストかどうかの識別を先に行う
-    if(self::checkAjaxRequestIntegrity() === FALSE) {
+    if(DataManager::checkAjaxRequestIntegrity() === FALSE) {
       print 'This access is not valid.<br>\n';
       return false;
     }
-    $dbh = self::conectDB();
-    // self::checkConectDB($dbh);
-    $sql = 'insert into movie (id, title, url_movie, url_thumbnail, explanation, upLoadDate, viewCount) values (?, ?, ?, ?, ?, ?, ?)';
+    $dbh = DatabaseManager::getHandle();
+    DatabaseManager::checkConectDB($dbh);
+    $sql = 'insert into movie (id, title, url_movie, url_thumbnail, explanation, upLoadDate, viewCount, user_id) values (?, ?, ?, ?, ?, ?, ?, ?)';
     $stmt = $dbh->prepare($sql);
-    $flag = $stmt->execute(array(null, $this->title, $this->url_movie, $this->url_thumbnail, $this->explanatuon, date("Y/m/d H:i:s"), 0));
-    if($flag === TRUE) {
-      $dbh = null;
-      print 'データの追加に成功しました<br>\n';
-    } else {
-      print 'データの追加に失敗しました<br>\n';
-      die();
-    }
+    $flag = $stmt->execute(array(null, $this->title, $this->url_movie, $this->url_thumbnail, $this->explanatuon, date("Y/m/d H:i:s"), 0, $this->user->getId()));
+    if($flag === FALSE) {
+      die('Post：データベースへの保存失敗<br>\n');
+    } 
+    $dbh = null;
+    print_r('Post：データベースへの保存成功<br>\n');
   }
 }
 
-
+session_start();
 //このページでechoまたはprintしたものがhtmlに返されて出力される
 header("Content-type: text/plain; charset=UTF-8");
-$user = new User('admin');
+if (CSRF::checkToken($_POST['csrf_token']) === FALSE) {
+  return false;
+}
 
 new PostMovie(
   $_POST['title'], 

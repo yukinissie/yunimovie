@@ -9,6 +9,19 @@ header {
     color: #ff9a04;
     line-height: 35px;
     line-height: 75px;
+    float:left;
+}
+.fa-user-circle {
+    font-size: 20px;
+}
+.login-button {
+    float:right;
+    margin-top: 20px;
+}
+
+.logout-button {
+    float:right;
+    margin-top: 20px;
 }
 
 video {
@@ -23,6 +36,14 @@ video {
     width: 100%;
 }
 
+.post-button {
+    position: fixed;
+    right: 10%;
+    bottom: 10%;
+    z-index: 10;
+    border-radius: 15px;
+}
+
 .post {
-    background-color: #ccc;
+    /* background-color: #ccc; */
 }
