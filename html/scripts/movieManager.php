@@ -1,7 +1,6 @@
 <?php
 require_once('dataManager.php');
 require_once('databaseManager.php');
-// require_once('user.php');
 
 class MovieManager
 {
