@@ -21,32 +21,30 @@ class DeleteMovie
     self::onFileSystem();
     self::onDatabase();
     $this->dbh = null;
-    die();
   }
-
   private function onFileSystem() {
     $sql = 'select * from movie where id = :delete_id';
     $stmt = $this->dbh->prepare($sql);
     $flag = $stmt->execute(array(':delete_id' => $this->id));
     if($flag === FALSE) {
-      die('削除：データベース読込失敗<br>\n');
+      die("削除：データベース読込失敗<br>\n");
     }
     $movies_data[] = $stmt->fetch(PDO::FETCH_ASSOC);
     if ($movies_data[0] == null) {
-      die('削除：読込失敗<br>\n');
+      die("削除：読込失敗<br>\n");
     }
     unlink("{$movies_data[0]['url_movie']}");
     unlink("{$movies_data[0]['url_thumbnail']}");
-    echo '削除：ファイルシステムからの削除成功<br>\n';
+    echo "削除：ファイルシステムからの削除成功<br>\n";
   }
   private function onDatabase() {
     $sql = 'delete from movie where id = :delete_id';
     $stmt = $this->dbh->prepare($sql);
     $flag = $stmt->execute(array(':delete_id' => $this->id));
     if($flag === FALSE) {
-      die('削除：データベースからの削除失敗<br>\n');
+      die("削除：データベースからの削除失敗<br>\n");
     }
-    echo '削除：データベースからの削除成功<br>\n';
+    echo "削除：データベースからの削除成功<br>\n";
   }
 }
 

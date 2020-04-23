@@ -1,109 +1,143 @@
 <?php
-// require 'password.php';   // password_verfy()はphp 5.5.0以降の関数のため、バージョンが古くて使えない場合に使用
-// セッション開始
-session_start();
+require_once('scripts/databaseManager.php');
 
-$db['host'] = "localhost";  // DBサーバのURL
-$db['user'] = "root";  // ユーザー名
-$db['pass'] = "root";  // ユーザー名のパスワード
-$db['dbname'] = "yunimovie";  // データベース名
+class SignIn
+{
+  private $errorMessage;
+  private $userId;
+  private $password;
+  private $userData;
 
-// エラーメッセージの初期化
-$errorMessage = "";
-
-// ログインボタンが押された場合
-if (isset($_POST["login"])) {
-  // 1. ユーザIDの入力チェック
-  if (empty($_POST["userid"])) {  // emptyは値が空のとき
-    $errorMessage = 'ユーザーIDが未入力です。';
-  } else if (empty($_POST["password"])) {
-    $errorMessage = 'パスワードが未入力です。';
+  public function __construct() {
+    $this->errorMessage = "";
   }
 
-  if (!empty($_POST["userid"]) && !empty($_POST["password"])) {
-    // 入力したユーザIDを格納
-    $userid = $_POST["userid"];
-
-    // 2. ユーザIDとパスワードが入力されていたら認証する
-    $dsn = sprintf('mysql: host=%s; dbname=%s; charset=utf8', $db['host'], $db['dbname']);
-
-    // 3. エラー処理
+  public function signin($userId, $password) {
+    $this->userId = $userId;
+    $this->password = $password;
+    if ($this->isSetUserId() === FALSE) {
+      $this->errorMessage = 'ユーザーIDが未入力です。';
+      return false;
+    }
+    if ($this->isSetPassword() === FALSE) {
+      $this->errorMessage = 'パスワードが未入力です。';
+      return false;
+    }
+    if (($this->userData = $this->getUserData()) === FALSE) {
+      $this->errorMessage = 'データベースエラー';
+      return false;
+    }
+    if ($this->checkUserId() === FALSE) {
+      $this->errorMessage = 'ユーザーIDあるいはパスワードに誤りがあります。1';
+      return false;
+    }
+    if ($this->checkPassword() === FALSE) {
+      $this->errorMessage = 'ユーザーIDあるいはパスワードに誤りがあります。2';
+      return false;
+    }
+    session_start();
     try {
-      $pdo = new PDO($dsn, $db['user'], $db['pass'], array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
-
-      $stmt = $pdo->prepare('SELECT * FROM userData WHERE name = ?');
-      $stmt->execute(array($userid));
-
-      $password = $_POST["password"];
-
-      if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        if (password_verify($password, $row['password'])) {
-          session_regenerate_id(true);
-
-          // 入力したIDのユーザー名を取得
-          $id = $row['id'];
-          $sql = "SELECT * FROM userData WHERE id = $id";  //入力したIDからユーザー名を取得
-          $stmt = $pdo->query($sql);
-          foreach ($stmt as $row) {
-            $row['name'];  // ユーザー名
-          }
-          $_SESSION["NAME"] = $row['name'];
-          $_SESSION["ID"] = $row['id'];
-          header("Location: index.php");  // メイン画面へ遷移
-          exit();  // 処理終了
-        } else {
-          // 認証失敗
-          $errorMessage = 'ユーザーIDあるいはパスワードに誤りがあります。';
-        }
-      } else {
-        // 4. 認証成功なら、セッションIDを新規に発行する
-        // 該当データなし
-        $errorMessage = 'ユーザーIDあるいはパスワードに誤りがあります。';
+      $dbh = DatabaseManager::getHandle();
+      session_regenerate_id(true);
+      // 入力したIDのユーザー名を取得
+      $id = $this->userData['id'];
+      $sql = "SELECT * FROM userData WHERE id = $id";  //入力したIDからユーザー名を取得
+      $stmt = $dbh->query($sql);
+      foreach ($stmt as $this->userData) {
+        $this->userData['name'];  // ユーザー名
       }
+      $_SESSION["userName"] = $this->userData['name'];
+      $_SESSION["ID"] = $this->userData['id'];
+      header("Location: index.php");
+      exit();
     } catch (PDOException $e) {
-      $errorMessage = 'データベースエラー';
-      //$errorMessage = $sql;
-      // $e->getMessage() でエラー内容を参照可能（デバッグ時のみ表示）
+      $this->errorMessage = 'データベースエラー';
+      return false;
+      // $this->errorMessage = $sql;
       // echo $e->getMessage();
     }
   }
+  private function getUserData() {
+    try {
+      $dbh = DatabaseManager::getHandle();
+      $stmt = $dbh->prepare('SELECT * FROM userData WHERE name = ?');
+      $stmt->execute(array($this->userId));
+      return $stmt->fetch(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+      return false;
+    }
+  }
+  private function isSetUserId() {
+    if (empty($this->userId)) {
+      return false;
+    } 
+  }
+  private function isSetPassword() {
+    if (empty($this->password)) {
+      return false;
+    }
+  }
+  private function checkUserId() {
+    if ($this->userData) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  private function checkPassword() {
+    if (password_verify($this->password, $this->userData['password'])) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  public function getErrorMesage() {
+    return $this->errorMessage;
+  }
 }
+
+
+$signin = new SignIn();
+if (isset($_POST['userid'])) {
+  $signin->signin($_POST['userid'], $_POST['password']);
+}
+
 ?>
 
+<?php require_once('scripts/templateEngine.php'); ?>
 <!doctype html>
 <html>
   <head>
-  <?php 
-    require_once('scripts/templateEngine.php');
-    $head_tpl = new TemplateEngine();
-    $head_tpl->render('head.tpl');
-  ?>
+    <?php 
+      $head_tpl = new TemplateEngine;
+      $head_tpl->render('head.tpl');
+    ?>
   </head>
   <body>
     <?php
-      $header_tpl = new TemplateEngine(); 
+      $header_tpl = new TemplateEngine; 
       $header_tpl->render('header.tpl');
     ?>
     <div class="container">
-      <h1>ログイン画面</h1>
+      <h1>Sign In</h1>
       <form id="loginForm" name="loginForm" action="" method="POST">
         <fieldset>
-          <legend>ログインフォーム</legend>
-          <div><font color="#ff0000"><?php echo htmlspecialchars($errorMessage, ENT_QUOTES); ?></font></div>
-          <label for="userid">ユーザーID</label><input type="text" id="userid" name="userid" placeholder="ユーザーIDを入力" value="<?php if (!empty($_POST["userid"])) {echo htmlspecialchars($_POST["userid"], ENT_QUOTES);} ?>">
+          <legend>Sign In Form</legend>
+          <div><font color="#ff0000"><?php echo htmlspecialchars($signin->getErrorMesage(), ENT_QUOTES); ?></font></div>
+          <label for="userid">User Name</label><input type="text" id="userid" name="userid" placeholder="ユーザーIDを入力" value="<?php if (!empty($_POST["userid"])) {echo htmlspecialchars($_POST["userid"], ENT_QUOTES);} ?>" class="form-control col-xs-12">
           <br>
-          <label for="password">パスワード</label><input type="password" id="password" name="password" value="" placeholder="パスワードを入力">
+          <label for="password">Password</label><input type="password" id="password" name="password" value="" placeholder="パスワードを入力" class="form-control col-xs-12">
           <br>
-          <input type="submit" id="login" name="login" value="ログイン">
+          <input type="submit" id="login" name="login" value="Sign In!" class="btn btn-primary float-right">
         </fieldset>
       </form>
       <br>
-      <form action="signUp.php">
-        <fieldset>          
-          <legend>新規登録フォーム</legend>
-          <input type="submit" value="新規登録">
-        </fieldset>
-      </form>
+      <p>アカウントをお持ちではありませんか？</p>
+      <a href="signUp.php">新規登録はこちら</a>
     </div>
+    <?php 
+      $bootstrap_javascript_tpl = new TemplateEngine;
+      $bootstrap_javascript_tpl->render('bootstrapJavaScript.tpl');
+    ?>
   </body>
 </html>

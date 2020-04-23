@@ -15,10 +15,11 @@ $header_tpl = new TemplateEngine();
 $main_tpl = new TemplateEngine();
 $post_tpl = new TemplateEngine();
 $debug_tpl = new TemplateEngine();
-$script_tpl = new TemplateEngine();
+$bootstrap_javascript_tpl = new TemplateEngine();
+$project_javascript_tpl = new TemplateEngine();
 
 // TODO 
-if ($_SESSION["NAME"]) {
+if ($_SESSION["userName"]) {
   $session_status = 'login';
 } else {
   $session_status = 'logout';

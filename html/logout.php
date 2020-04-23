@@ -1,17 +1,28 @@
 <?php
-session_start();
 
-if (isset($_SESSION["NAME"])) {
-    $errorMessage = "ログアウトしました。";
-} else {
-    $errorMessage = "セッションがタイムアウトしました。";
+class Logout
+{
+  private $message;
+
+  public function logout($userName) {
+    if (isset($userName)) {
+      $this->message = "ログアウトしました。\n";
+    } else {
+      $this->message = "セッションがタイムアウトしました。\n";
+    }
+    // セッションの変数のクリア
+    $_SESSION[] = array();
+    // セッションクリア
+    @session_destroy();
+  }
+  public function getMessage() {
+    return $this->message;
+  }
 }
 
-// セッションの変数のクリア
-$_SESSION = array();
+session_start();
+$logout = new Logout($_SESSION["userName"]);
 
-// セッションクリア
-@session_destroy();
 ?>
 
 <!doctype html>
@@ -29,11 +40,13 @@ $_SESSION = array();
   </head>
   <body>
     <div class="container">
-      <h1>ログアウト画面</h1>
-      <div><?php echo htmlspecialchars($errorMessage, ENT_QUOTES); ?></div>
-      <ul>
-        <li><a href="signIn.php">ログイン画面に戻る</a></li>
-      </ul>
+      <h1>Logout...</h1>
+      <p><?= $logout->getMessage(); ?></p>
+      <a href="signIn.php">サインイン画面へ</a>
     </div>
+    <?php 
+      $bootstrap_javascript_tpl = new TemplateEngine;
+      $bootstrap_javascript_tpl->render('bootstrapJavaScript.tpl');
+    ?>
   </body>
 </html>

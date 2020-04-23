@@ -18,6 +18,7 @@
     <?php endif ?>
   </div>
 </header>
+<div style="height:70px"></div>
 <?php
 if ($T->session_status === 'login') {
   $T->render('logout.tpl');

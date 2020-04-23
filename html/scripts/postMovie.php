@@ -3,8 +3,8 @@ require_once('dataManager.php');
 require_once('movieManager.php');
 require_once('thumbnailManager.php');
 require_once('databaseManager.php');
-require_once('user.php');
 require_once('CSRFMeasures.php');
+require_once('user.php');
 
 class PostMovie
 {
@@ -35,7 +35,7 @@ class PostMovie
   }
   private function post() {
     if(DataManager::checkAjaxRequestIntegrity() === FALSE) {
-      print 'This access is not valid.<br>\n';
+      print "This access is not valid.<br>\n";
       return false;
     }
     $dbh = DatabaseManager::getHandle();
@@ -44,18 +44,17 @@ class PostMovie
     $stmt = $dbh->prepare($sql);
     $flag = $stmt->execute(array(null, $this->title, $this->url_movie, $this->url_thumbnail, $this->explanatuon, date("Y/m/d H:i:s"), 0, $this->user->getId()));
     if($flag === FALSE) {
-      die('Post：データベースへの保存失敗<br>\n');
+      die("Post：データベースへの保存失敗<br>\n");
     } 
     $dbh = null;
-    print_r('Post：データベースへの保存成功<br>\n');
+    print_r("Post：データベースへの保存成功<br>\n");
   }
 }
 
-session_start();
 //このページでechoまたはprintしたものがhtmlに返されて出力される
 header("Content-type: text/plain; charset=UTF-8");
 if (CSRF::checkToken($_POST['csrf_token']) === FALSE) {
-  return false;
+  die();
 }
 
 new PostMovie(

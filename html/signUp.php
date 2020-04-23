@@ -54,11 +54,11 @@ if (isset($_POST["signUp"])) {
 }
 ?>
 
+<?php require_once('scripts/templateEngine.php'); ?>
 <!doctype html>
 <html>
   <head>
-    <?php 
-      require_once('scripts/templateEngine.php');
+    <?php
       $head_tpl = new TemplateEngine();
       $head_tpl->render('head.tpl');
     ?>
@@ -69,25 +69,28 @@ if (isset($_POST["signUp"])) {
       $header_tpl->render('header.tpl');
     ?>
     <div class="container">
-      <h1>新規登録画面</h1>
+      <h1>Create New Account</h1>
       <form id="loginForm" name="loginForm" action="" method="POST">
         <fieldset>
-          <legend>新規登録フォーム</legend>
+          <legend>Sign Up Form</legend>
           <div><font color="#ff0000"><?php echo htmlspecialchars($errorMessage, ENT_QUOTES); ?></font></div>
           <div><font color="#0000ff"><?php echo htmlspecialchars($signUpMessage, ENT_QUOTES); ?></font></div>
-          <label for="username">ユーザー名</label><input type="text" id="username" name="username" placeholder="ユーザー名を入力" value="<?php if (!empty($_POST["username"])) {echo htmlspecialchars($_POST["username"], ENT_QUOTES);} ?>">
+          <label for="username">User Name</label><input type="text" id="username" name="username" placeholder="ユーザー名を入力" value="<?php if (!empty($_POST["username"])) {echo htmlspecialchars($_POST["username"], ENT_QUOTES);} ?>" class="form-control col-xs-12">
           <br>
-          <label for="password">パスワード</label><input type="password" id="password" name="password" value="" placeholder="パスワードを入力">
+          <label for="password">Password</label><input type="password" id="password" name="password" value="" placeholder="パスワードを入力" class="form-control col-xs-12">
           <br>
-          <label for="password2">パスワード(確認用)</label><input type="password" id="password2" name="password2" value="" placeholder="再度パスワードを入力">
+          <label for="password2">Password (Re type!)</label><input type="password" id="password2" name="password2" value="" placeholder="再度パスワードを入力" class="form-control col-xs-12">
           <br>
-          <input type="submit" id="signUp" name="signUp" value="新規登録">
+          <input type="submit" id="signUp" name="signUp" value="Sign Up!" class="btn btn-primary float-right">
         </fieldset>
       </form>
       <br>
-      <form action="signIn.php">
-        <input type="submit" value="戻る">
-      </form>
+      <p>アカウントをお持ちですか？</p>
+      <p><a href="signIn.php">サインインはこちら</a></p>
     </div>
+    <?php 
+      $bootstrap_javascript_tpl = new TemplateEngine;
+      $bootstrap_javascript_tpl->render('bootstrapJavaScript.tpl');
+    ?>
   </body>
 </html>

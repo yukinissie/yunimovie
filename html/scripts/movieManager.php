@@ -51,13 +51,12 @@ class MovieManager
   public static function getReversedList() {
     return array_reverse(self::crateInstance());
   }
-
   public function generateNameMovie() {
     $this->movie_name = $this->date . '.mp4';
   }
   public function saveOnServerMovie() {
     if($this->movie_type === 'video/mp4') {
-      $result = move_uploaded_file($this->tmp_movie_name, '../movie/' . $this->user->getName() . '/' . $this->movie_name);
+      $result = move_uploaded_file($this->tmp_movie_name, '../movie/' . $this->user->getId() . '/' . $this->movie_name);
       echo DataManager::upLoadResult($result, 'MP4 MOVIE');
     } else {
       $result = $this->toMP4();
@@ -65,25 +64,20 @@ class MovieManager
     }
   }
   private function toMP4() {
-    print 'converting<br>\n';
-    $result = shell_exec('ffmpeg -i ' . $this->tmp_movie_name . ' -pix_fmt yuv420p ../movie/' . $this->user->getName() . '/' . $this->date . '.mp4');
-    print 'converted<br>\n';
+    print "converting<br>\n";
+    $result = shell_exec('ffmpeg -i ' . $this->tmp_movie_name . ' -pix_fmt yuv420p ../movie/' . $this->user->getId() . '/' . $this->date . '.mp4');
+    print "converted<br>\n";
     return $this->convertedResult($result);
   }
   private function convertedResult($result) {
     if($result !== null) {
-      print 'CONVERT FALSE<br>\n';
+      print "CONVERT FALSE<br>\n";
       return false;
     }
-    print 'CONVERT OK<br>\n';
+    print "CONVERT OK<br>\n";
     return true;
   }
   public function generateFilePathMovie() {
-    return '../movie/' . $this->user->getName() . '/' . $this->movie_name;
+    return '../movie/' . $this->user->getId() . '/' . $this->movie_name;
   }
-
-  // public function getUserId($i) {
-  //   $movies_instance = self::crateInstance();
-  //   return $movies_instance[$i]['user_id'];
-  // }
 }

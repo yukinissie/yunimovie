@@ -1,6 +1,5 @@
 <?php
 require_once('dataManager.php');
-require_once('user.php');
 
 class ThumbnailManager
 {
@@ -27,10 +26,10 @@ class ThumbnailManager
     }
   }
   public function saveOnServerThumbnail() {
-    $result = move_uploaded_file($this->tmp_thumbnail_name, '../img/'. $this->user->getName() .'/'.$this->thumbnail_name);
+    $result = move_uploaded_file($this->tmp_thumbnail_name, '../img/'. $this->user->getId() .'/'.$this->thumbnail_name);
     echo DataManager::upLoadResult($result, 'IMAGE');
   }
   public function generateFilePathThumbnail() {
-    return '../img/'. $this->user->getName() .'/'.$this->thumbnail_name;
+    return '../img/'. $this->user->getId() .'/'.$this->thumbnail_name;
   }
 }

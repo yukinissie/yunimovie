@@ -19,8 +19,8 @@ class User
 }
 
 session_start();
-if ($_SESSION["NAME"]) {
-  $user = new User($_SESSION["NAME"], $_SESSION["ID"]);
+if ($_SESSION["userName"]) {
+  $user = new User($_SESSION["userName"], $_SESSION["ID"]);
 } else {
-  $user = new User('ゲスト', 0);
+  $user = new User('ゲスト', -1);
 }

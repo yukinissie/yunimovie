@@ -1,14 +1,15 @@
 header {
-    height: 75px;
+    height: 60px;
+    width: 100%;
+    background-color: #fff;
     border-bottom: 1px gray solid;
-    margin-bottom: 10px;
+    position: fixed;
 }
 
 .site-logo {
     font-size: 35px;
     color: #ff9a04;
-    line-height: 35px;
-    line-height: 75px;
+    line-height: 60px;
     float:left;
 }
 .fa-user-circle {
@@ -16,12 +17,16 @@ header {
 }
 .login-button {
     float:right;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .logout-button {
     float:right;
-    margin-top: 20px;
+    margin-top: 10px;
+}
+
+h1 {
+    font-size: 30px;
 }
 
 video {
@@ -44,6 +49,3 @@ video {
     border-radius: 15px;
 }
 
-.post {
-    /* background-color: #ccc; */
-}

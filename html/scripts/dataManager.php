@@ -15,9 +15,9 @@ class DataManager
   }
   public function upLoadResult($result, $type) {
     if ($result === false) {
-      return 'UPLOAD '.$type.'FAILE<br>\n';
+      return 'UPLOAD ' . $type . " FAILE<br>\n";
     }
-    return 'UPLOAD OK<br>\n';
+    return "UPLOAD " . $type . " OK<br>\n";
   }
 }
 

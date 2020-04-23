@@ -34,6 +34,9 @@
   - 投稿したユーザーと動画の紐付け
 - UIの整備
 
+#### 2020 4/23
+- デファクタリング中（主にカプセル化）
+
 ### MIT-LICENSE
 Copyright (c) 2020 Yuki Nishi<br>
 Released under the MIT license<br>

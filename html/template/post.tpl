@@ -12,13 +12,27 @@
           <div class="container">
             <form method="post" enctype="multipart/form-data" id="post_movie">
               <input type="hidden" name="csrf_token" value="<?=CSRF::getToken();?>">
-              動画：<br>
-              <input type="file" accept="video/*" multiple name="movie" id="movie"><br>
-              サブネイル：<br>
-              <input type="file" accept="image/png, image/jpeg, image/gif" multiple name="thumbnail" id="thumbnail"><br>
-              タイトル：<br>
+                Movie
+              <label class="float-right">
+                <span class="btn btn-outline-primary">
+                  Choose Movie
+                  <input type="file" accept="video/*" multiple name="movie" id="movie" style="display:none;"><br>
+                </span>
+              </label>
+              <br>
+              <br>
+                Thumbnail
+              <label class="float-right">
+                <span class="btn btn-outline-primary">
+                  Choose Thumbnail
+                  <input type="file" accept="image/png, image/jpeg, image/gif" multiple name="thumbnail" id="thumbnail" style="display:none;"><br>
+                </span>
+              </label>
+              <br>
+              <br>
+              タイトル
               <textarea name="title" cols="35" rows="1" class="form-control col-xs-12" id="title" placeholder="タイトルを入力してください"></textarea><br>
-              説明文：<br>
+              説明文
               <textarea name="explanation" cols="35" rows="5" class="form-control col-xs-12" id="explanation" placeholder="説明文を入力してください"></textarea><br>
             </form>
           </div>

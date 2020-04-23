@@ -21,19 +21,20 @@
               <?= $movie->getExplanation(); ?>
             </p>
             <?php if ($T->session_status === 'login' && $T->user->getId() === $movie->getUserId()): ?>
-            <div class="btn btn-danger delete" id="<?= $movie->getId(); ?>">削除</div>
+              <div class="btn btn-danger delete" id="<?= $movie->getId(); ?>">削除</div>
             <?php endif ?>
+            <?php // echo var_dump($T->user->getId(), $movie->getUserId()); ?>
             <div class="border"></div>
           </form>
         <?php endforeach ?>
         <?php else: ?>
           <div class="first-message">
             <div class="container">
-              <?= $T->user->getName() . 'さん、こんにちは！' . '<br>'; ?>
+              <h1><?= $T->user->getName() . "さん、<br>こんにちは！" . '<br>'; ?></h1>
               <?php if ($T->user->getName() === 'ゲスト'): ?>
-                まずは<a href="signUp.php">サインアップ</a>しよう！
+                <p>まずは<a href="signUp.php">サインアップ</a>しよう！</p>
               <?php else: ?>
-                動画を投稿してみよう↓
+                <p>動画を投稿してみよう↓</p>
               <? endif ?>
             </div>
           </div>

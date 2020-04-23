@@ -9,7 +9,7 @@ class DatabaseManager
 
   public function getHandle() {
     try {
-      return new PDO(self::$dsn, self::$user, self::$password);
+      return new PDO(self::$dsn, self::$user, self::$password, array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
     } catch(PDOException $e) {
       print('Connection failed:'.$e->getMessage());
       die();
@@ -18,8 +18,8 @@ class DatabaseManager
   /* デバッグ用 */
   public function checkConectDB($dbh) {
     if ($dbh == null){
-      print('接続に失敗しました。<br>');
+      print("接続に失敗しました。<br>\n");
     }
-    print('接続に成功しました。<br>');
+    print("接続に成功しました。<br>\n");
   }
 }
