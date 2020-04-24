@@ -21,12 +21,12 @@ $(function() {
       dataType    : "html"
     })
     .done(function(getData, textStatus){
-      // デバッグ用 アラートとコンソール
-      alert(getData);
-      console.log(getData);
-      //出力する部分
-      $('#result').html(getData);
-      $("#textStatus").html("textStatus : " + textStatus);
+      // // デバッグ用 アラートとコンソール
+      // alert(getData);
+      // console.log(getData);
+      // //出力する部分
+      // $('#result').html(getData);
+      // $("#textStatus").html("textStatus : " + textStatus);
       location.reload();
       return false;
     })
@@ -35,6 +35,13 @@ $(function() {
       $("#XMLHttpRequest").html("XMLHttpRequest : " + XMLHttpRequest.status);
       $("#textStatus").html("textStatus : " + textStatus);
       $("#errorThrown").html("errorThrown : " + errorThrown);
+      return false;
     });
+  });
+  $(document).on('change', ':file', function() {
+    var input = $(this),
+    label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+    input.parent().parent().next(':text').val(label);
+    return false;
   });
 });

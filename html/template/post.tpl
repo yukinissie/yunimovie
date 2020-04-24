@@ -19,6 +19,7 @@
                   <input type="file" accept="video/*" multiple name="movie" id="movie" style="display:none;"><br>
                 </span>
               </label>
+              <input type="text" class="form-control" readonly="">
               <br>
               <br>
                 Thumbnail
@@ -28,6 +29,7 @@
                   <input type="file" accept="image/png, image/jpeg, image/gif" multiple name="thumbnail" id="thumbnail" style="display:none;"><br>
                 </span>
               </label>
+              <input type="text" class="form-control" readonly="">
               <br>
               <br>
               タイトル

@@ -3,6 +3,7 @@ require_once(__DIR__ . '/CSRFMeasures.php');
 require_once(__DIR__ . '/dataManager.php');
 require_once(__DIR__ . '/templateEngine.php');
 require_once(__DIR__ . '/movieManager.php');
+require_once(__DIR__ . '/userManager.php');
 require_once(__DIR__ . '/user.php');
 
 

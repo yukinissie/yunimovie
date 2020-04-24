@@ -24,38 +24,22 @@ class SignIn
       return false;
     }
     if (($this->userData = $this->getUserData()) === FALSE) {
-      $this->errorMessage = 'データベースエラー';
+      $this->errorMessage = 'ユーザーIDあるいはパスワードに誤りがあります。';
       return false;
     }
     if ($this->checkUserId() === FALSE) {
-      $this->errorMessage = 'ユーザーIDあるいはパスワードに誤りがあります。1';
+      $this->errorMessage = 'ユーザーIDあるいはパスワードに誤りがあります。';
       return false;
     }
     if ($this->checkPassword() === FALSE) {
-      $this->errorMessage = 'ユーザーIDあるいはパスワードに誤りがあります。2';
+      $this->errorMessage = 'ユーザーIDあるいはパスワードに誤りがあります。';
       return false;
     }
     session_start();
-    try {
-      $dbh = DatabaseManager::getHandle();
-      session_regenerate_id(true);
-      // 入力したIDのユーザー名を取得
-      $id = $this->userData['id'];
-      $sql = "SELECT * FROM userData WHERE id = $id";  //入力したIDからユーザー名を取得
-      $stmt = $dbh->query($sql);
-      foreach ($stmt as $this->userData) {
-        $this->userData['name'];  // ユーザー名
-      }
-      $_SESSION["userName"] = $this->userData['name'];
-      $_SESSION["ID"] = $this->userData['id'];
-      header("Location: index.php");
-      exit();
-    } catch (PDOException $e) {
-      $this->errorMessage = 'データベースエラー';
-      return false;
-      // $this->errorMessage = $sql;
-      // echo $e->getMessage();
-    }
+    session_regenerate_id(true);
+    $_SESSION["userName"] = $this->userData['name'];
+    $_SESSION["ID"] = $this->userData['id'];
+    header("Location: index.php");
   }
   private function getUserData() {
     try {

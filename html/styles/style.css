@@ -1,9 +1,11 @@
+
 header {
     height: 60px;
     width: 100%;
     background-color: #fff;
     border-bottom: 1px gray solid;
     position: fixed;
+    z-index: 10;
 }
 
 .site-logo {
@@ -29,6 +31,10 @@ h1 {
     font-size: 30px;
 }
 
+.title {
+    padding-top: 15px;
+}
+
 video {
     width:345px;
     height:205px;
@@ -47,5 +53,17 @@ video {
     bottom: 10%;
     z-index: 10;
     border-radius: 15px;
+}
+
+.content {
+    background-color: #fff;
+    box-shadow: 0 0 4px -1px gray;
+    margin-bottom:30px;
+}
+
+
+
+.empty {
+    height:30px;
 }
 

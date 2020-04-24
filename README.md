@@ -37,6 +37,12 @@
 #### 2020 4/23
 - デファクタリング中（主にカプセル化）
 
+#### 2020 4/24
+- カプセル化完了
+- 投稿者の表示
+- 再生回数機能の実装
+- UIの整備
+
 ### MIT-LICENSE
 Copyright (c) 2020 Yuki Nishi<br>
 Released under the MIT license<br>

@@ -1,56 +1,87 @@
 <?php
-// require 'password.php';   // password_hash()はphp 5.5.0以降の関数のため、バージョンが古くて使えない場合に使用
-require_once('scripts/dbConfig.php');
-// セッション開始
-session_start();
+require_once('scripts/databaseManager.php');
 
-$db['host'] = "localhost";  // DBサーバのURL
-$db['user'] = "root";  // ユーザー名
-$db['pass'] = "root";  // ユーザー名のパスワード
-$db['dbname'] = "yunimovie";  // データベース名
+class signUp
+{
+  private $errorMessage;
+  private $signUpMessage;
+  private $userName;
+  private $password;
+  private $password_secound;
 
-// エラーメッセージ、登録完了メッセージの初期化
-$errorMessage = "";
-$signUpMessage = "";
-
-// ログインボタンが押された場合
-if (isset($_POST["signUp"])) {
-  // 1. ユーザIDの入力チェック
-  if (empty($_POST["username"])) {  // 値が空のとき
-    $errorMessage = 'ユーザーIDが未入力です。';
-  } else if (empty($_POST["password"])) {
-    $errorMessage = 'パスワードが未入力です。';
-  } else if (empty($_POST["password2"])) {
-    $errorMessage = 'パスワードが未入力です。';
+  public function __construct() {
+    $this->errorMessage = "";
+    $this->signUpMessage = "";
   }
 
-  if (!empty($_POST["username"]) && !empty($_POST["password"]) && !empty($_POST["password2"]) && $_POST["password"] === $_POST["password2"]) {
-    // 入力したユーザIDとパスワードを格納
-    $username = $_POST["username"];
-    $password = $_POST["password"];
-
-    // 2. ユーザIDとパスワードが入力されていたら認証する
-    $dsn = sprintf('mysql: host=%s; dbname=%s; charset=utf8', $db['host'], $db['dbname']);
-
-    // 3. エラー処理
+  public function signup($userName, $password, $password_secound) {
+    $this->userName = $userName;
+    $this->password = $password;
+    $this->password_secound = $password_secound;
+    if ($this->isSetUserName() === FALSE) {
+      $this->errorMessage = 'ユーザーIDが未入力です。';
+      return false;
+    }
+    if ($this->isSetPassword() === FALSE) {
+      $this->errorMessage = 'パスワードが未入力です。';
+      return false;
+    }
+    if ($this->isSetPasswordSecound() === FALSE) {
+      $this->errorMessage = '確認用パスワードが未入力です。';
+      return false;
+    }
+    if ($this->checkPassword() === FALSE) {
+      $this->errorMessage = 'パスワードに誤りがあります。';
+      return false;
+    }
+    session_start();
     try {
-      $pdo = new PDO($dsn, $db['user'], $db['pass'], array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
-
-      $stmt = $pdo->prepare("INSERT INTO userData(name, password) VALUES (?, ?)");
-
-      $stmt->execute(array($username, password_hash($password, PASSWORD_DEFAULT)));  // パスワードのハッシュ化を行う（今回は文字列のみなのでbindValue(変数の内容が変わらない)を使用せず、直接excuteに渡しても問題ない）
-      $userid = $pdo->lastinsertid();  // 登録した(DB側でauto_incrementした)IDを$useridに入れる
+      $dbh = DatabaseManager::getHandle();
+      $stmt = $dbh->prepare("INSERT INTO userData(name, password) VALUES (?, ?)");
+      $stmt->execute(array($this->userName, password_hash($this->password, PASSWORD_DEFAULT)));
+      $userid = $dbh->lastinsertid();
       mkdir(__DIR__ . "/movie/{$userid}", 0755, true);
       mkdir(__DIR__ . "/img/{$userid}", 0755, true);
-      $signUpMessage = '登録が完了しました。';  // ログイン時に使用するID
+      $this->signUpMessage = '登録が完了しました。';
     } catch (PDOException $e) {
-      $errorMessage = 'データベースエラー';
+      $this->errorMessage = 'データベースエラー';
       // $e->getMessage() でエラー内容を参照可能（デバッグ時のみ表示）
       // echo $e->getMessage();
     }
-  } else if($_POST["password"] != $_POST["password2"]) {
-    $errorMessage = 'パスワードに誤りがあります。';
   }
+  private function isSetUserName() {
+    if (empty($this->userName)) {
+      return false;
+    } 
+  }
+  private function isSetPassword() {
+    if (empty($this->password)) {
+      return false;
+    }
+  }
+  private function isSetPasswordSecound() {
+    if (empty($this->password_secound)) {
+      return false;
+    }
+  }
+  private function checkPassword() {
+    if ($this->password != $this->password_secound) {
+      return false;
+    }
+  }
+  public function getErrorMessage() {
+    return $this->errorMessage;
+  }
+  public function getSignUpMessage() {
+    return $this->signUpMessage;
+  }
+}
+
+$signup = new SignUp;
+
+// ログインボタンが押された場合
+if (isset($_POST["signUp"])) {
+  $signup->signup($_POST['username'], $_POST["password"], $_POST["password2"]);
 }
 ?>
 
@@ -73,8 +104,8 @@ if (isset($_POST["signUp"])) {
       <form id="loginForm" name="loginForm" action="" method="POST">
         <fieldset>
           <legend>Sign Up Form</legend>
-          <div><font color="#ff0000"><?php echo htmlspecialchars($errorMessage, ENT_QUOTES); ?></font></div>
-          <div><font color="#0000ff"><?php echo htmlspecialchars($signUpMessage, ENT_QUOTES); ?></font></div>
+          <div><font color="#ff0000"><?php echo htmlspecialchars($signup->getErrorMessage(), ENT_QUOTES); ?></font></div>
+          <div><font color="#0000ff"><?php echo htmlspecialchars($signup->getSignUpMessage(), ENT_QUOTES); ?></font></div>
           <label for="username">User Name</label><input type="text" id="username" name="username" placeholder="ユーザー名を入力" value="<?php if (!empty($_POST["username"])) {echo htmlspecialchars($_POST["username"], ENT_QUOTES);} ?>" class="form-control col-xs-12">
           <br>
           <label for="password">Password</label><input type="password" id="password" name="password" value="" placeholder="パスワードを入力" class="form-control col-xs-12">

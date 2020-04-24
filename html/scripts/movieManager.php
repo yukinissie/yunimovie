@@ -80,4 +80,24 @@ class MovieManager
   public function generateFilePathMovie() {
     return '../movie/' . $this->user->getId() . '/' . $this->movie_name;
   }
+  public function countUp($id) {
+    $movies = self::loadData();
+    $viewCount=0;
+    for($i=0; $i<count($movies); $i++) {
+      if ($movies[$i]['id'] === $id) {
+        $viewCount = ++$movies[$i]['viewCount'];
+        break;
+      }
+    }
+    try {
+      $dbh = DatabaseManager::getHandle();
+      $sql = 'UPDATE movie SET viewCount = :viewCount WHERE id = :id';
+      $stmt = $dbh->prepare($sql);
+      $params = array(':viewCount' => $viewCount, ':id' => $id);
+      $stmt->execute($params);
+      return '成功';
+    } catch(PDOException $e) {
+      return '失敗'.$id.'/'.$viewCount.'/'.$e;
+    }
+  }
 }
