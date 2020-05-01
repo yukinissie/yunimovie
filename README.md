@@ -46,29 +46,39 @@ phpmyadminコンテナが4040ポートで公開されているので、
 - etc..
 
 ### ギャラリー
+
+
 - 最初のゲストユーザーのメイン画面
 ![firstGuestUserPage](gallery/firstGuestAccess.png)
+
 
 - サインアップ
 ![SignUp](gallery/signUp.png)
 
+
 - ログイン
 ![SignIn](gallery/SignIn.png)
+
 
 - 最初のログインユーザーのメイン画面
 ![firstUserPage](gallery/firstUserAccess.png)
 
+
 - 投稿画面
 ![postView](gallery/postView.png)
+
 
 - 動画の選択
 ![selectMovie](gallery/selectMovie.png)
 
+
 - 説明文の記述
 ![writeBody](gallery/writeBody.png)
 
+
 - メイン画面（動画の再生、削除ができる）
 ![mainView1](gallery/mainView1.png)
+
 
 - 他ユーザーは削除できない（削除ボタンが消える）
 ![mainView2](gallery/mainView2.png)
