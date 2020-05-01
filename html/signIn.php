@@ -89,6 +89,8 @@ if (isset($_POST['userid'])) {
 ?>
 
 <?php require_once('scripts/templateEngine.php'); ?>
+<?php require_once('scripts/dataManager.php'); ?>
+
 <!doctype html>
 <html>
   <head>
@@ -107,8 +109,8 @@ if (isset($_POST['userid'])) {
       <form id="loginForm" name="loginForm" action="" method="POST">
         <fieldset>
           <legend>Sign In Form</legend>
-          <div><font color="#ff0000"><?php echo htmlspecialchars($signin->getErrorMesage(), ENT_QUOTES); ?></font></div>
-          <label for="userid">User Name</label><input type="text" id="userid" name="userid" placeholder="ユーザーIDを入力" value="<?php if (!empty($_POST["userid"])) {echo htmlspecialchars($_POST["userid"], ENT_QUOTES);} ?>" class="form-control col-xs-12">
+          <div><font color="#ff0000"><?= DataManager::hsc($signin->getErrorMesage()) ?></font></div>
+          <label for="userid">User Name</label><input type="text" id="userid" name="userid" placeholder="ユーザーIDを入力" value="<?php if (!empty($_POST["userid"])) { echo DataManager::hsc($_POST["userid"]); } ?>" class="form-control col-xs-12">
           <br>
           <label for="password">Password</label><input type="password" id="password" name="password" value="" placeholder="パスワードを入力" class="form-control col-xs-12">
           <br>

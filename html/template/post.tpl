@@ -33,9 +33,9 @@
               <br>
               <br>
               タイトル
-              <textarea name="title" cols="35" rows="1" class="form-control col-xs-12" id="title" placeholder="タイトルを入力してください"></textarea><br>
+              <textarea name="title" cols="35" rows="1" class="form-control col-xs-12" id="title" placeholder="タイトルを入力してください" onclick="this.focus();this.select()">No Title</textarea><br>
               説明文
-              <textarea name="explanation" cols="35" rows="5" class="form-control col-xs-12" id="explanation" placeholder="説明文を入力してください"></textarea><br>
+              <textarea name="explanation" cols="35" rows="5" class="form-control col-xs-12" id="explanation" placeholder="説明文を入力してください" onclick="this.focus();this.select()">Grateful Movie.</textarea><br>
             </form>
           </div>
         </div>

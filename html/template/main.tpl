@@ -6,7 +6,7 @@
           <form method="post" enctype="multipart/form-data">
             <div class="container">
               <h1 class="title">
-                <?= $movie->getTitle(); ?>
+                <?= DataManager::hsc($movie->getTitle()); ?>
               </h1>
             </div>
             <video playsinline preload="none" poster="<?= $movie->getThumbnail(); ?>" controls name="<?= $movie->getId(); ?>">
@@ -15,17 +15,17 @@
             </video>
             <div class="container">
             <div class="user">
-              投稿者：<?= UserManager::getUserName($movie->getUserId()); ?>
+              投稿者：<?= DataManager::hsc(UserManager::getUserName($movie->getUserId())); ?>
             </div>
             <div class="viewCount">
-              再生回数：<?= $movie->getViewCount(); ?>
+              再生回数：<?= DataManager::hsc($movie->getViewCount()); ?>
             </div>
             <div class="upLoadDate">
-              投稿日：<?= $movie->getUpLoadDate(); ?>
+              投稿日：<?= DataManager::hsc($movie->getUpLoadDate()); ?>
             </div>
             <hr>
             <p class="explanation">
-              <?= $movie->getExplanation(); ?>
+              <?= DataManager::hsc($movie->getExplanation()); ?>
             </p>
             <div class="border"></div>
             <?php if ($T->session_status === 'login' && $T->user->getId() === $movie->getUserId()): ?>
@@ -40,7 +40,7 @@
       <?php else: ?>
         <div class="first-message">
           <div class="container">
-            <h1><?= $T->user->getName() . "さん、<br>こんにちは！" . '<br>'; ?></h1>
+            <h1><?= DataManager::hsc($T->user->getName()) . "さん、<br>こんにちは！" . '<br>'; ?></h1>
             <?php if ($T->user->getName() === 'ゲスト'): ?>
               <p>まずは<a href="signUp.php">サインアップ</a>しよう！</p>
             <?php else: ?>

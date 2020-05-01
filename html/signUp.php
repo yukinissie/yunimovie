@@ -43,6 +43,8 @@ class signUp
       mkdir(__DIR__ . "/movie/{$userid}", 0755, true);
       mkdir(__DIR__ . "/img/{$userid}", 0755, true);
       $this->signUpMessage = '登録が完了しました。';
+      sleep (2);
+      header("Location: signIn.php");
     } catch (PDOException $e) {
       $this->errorMessage = 'データベースエラー';
       // $e->getMessage() でエラー内容を参照可能（デバッグ時のみ表示）
@@ -86,6 +88,8 @@ if (isset($_POST["signUp"])) {
 ?>
 
 <?php require_once('scripts/templateEngine.php'); ?>
+<?php require_once('scripts/dataManager.php'); ?>
+
 <!doctype html>
 <html>
   <head>
@@ -104,9 +108,9 @@ if (isset($_POST["signUp"])) {
       <form id="loginForm" name="loginForm" action="" method="POST">
         <fieldset>
           <legend>Sign Up Form</legend>
-          <div><font color="#ff0000"><?php echo htmlspecialchars($signup->getErrorMessage(), ENT_QUOTES); ?></font></div>
-          <div><font color="#0000ff"><?php echo htmlspecialchars($signup->getSignUpMessage(), ENT_QUOTES); ?></font></div>
-          <label for="username">User Name</label><input type="text" id="username" name="username" placeholder="ユーザー名を入力" value="<?php if (!empty($_POST["username"])) {echo htmlspecialchars($_POST["username"], ENT_QUOTES);} ?>" class="form-control col-xs-12">
+          <div><font color="#ff0000"><?= DataManager::hsc($signup->getErrorMessage()) ?></font></div>
+          <div><font color="#0000ff"><?= DataManager::hsc($signup->getSignUpMessage()) ?></font></div>
+          <label for="username">User Name</label><input type="text" id="username" name="username" placeholder="ユーザー名を入力" value="<?php if (!empty($_POST["username"])) { echo DataManager::hsc($_POST["username"]); } ?>" class="form-control col-xs-12">
           <br>
           <label for="password">Password</label><input type="password" id="password" name="password" value="" placeholder="パスワードを入力" class="form-control col-xs-12">
           <br>
