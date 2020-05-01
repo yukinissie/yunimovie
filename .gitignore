@@ -1,5 +1,3 @@
-/db/mysql_data/*
-!/db/mysql_data/.gitkeep
 /html/img/admin/*
 !/html/img/admin/.gitkeep
 /html/movie/admin/*
