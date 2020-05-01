@@ -48,39 +48,39 @@ phpmyadminコンテナが4040ポートで公開されているので、
 ### ギャラリー
 
 
-- 最初のゲストユーザーのメイン画面
+- 最初のゲストユーザーのメイン画面<br>
 ![firstGuestUserPage](gallery/firstGuestAccess.png)
 
 
-- サインアップ
+- サインアップ<br>
 ![SignUp](gallery/signUp.png)
 
 
-- ログイン
+- ログイン<br>
 ![SignIn](gallery/signIn.png)
 
 
-- 最初のログインユーザーのメイン画面
+- 最初のログインユーザーのメイン画面<br>
 ![firstUserPage](gallery/firstUserAccess.png)
 
 
-- 投稿画面
+- 投稿画面<br>
 ![postView](gallery/postView.png)
 
 
-- 動画の選択
+- 動画の選択<br>
 ![selectMovie](gallery/selectMovie.png)
 
 
-- 説明文の記述
+- 説明文の記述<br>
 ![writeBody](gallery/writeBody.png)
 
 
-- メイン画面（動画の再生、削除ができる）
+- メイン画面（動画の再生、削除ができる）<br>
 ![mainView1](gallery/mainView1.png)
 
 
-- 他ユーザーは削除できない（削除ボタンが消える）
+- 他ユーザーは削除できない（削除ボタンが消える）<br>
 ![mainView2](gallery/mainView2.png)
 
 
