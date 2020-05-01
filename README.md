@@ -46,43 +46,32 @@ phpmyadminコンテナが4040ポートで公開されているので、
 - etc..
 
 ### ギャラリー
-
-
 - 最初のゲストユーザーのメイン画面<br>
-![firstGuestUserPage](gallery/firstGuestAccess.png)
-
+<img src="gallery/firstGuestAccess.png" width="320px" alt="firstGuestUserPage">
 
 - サインアップ<br>
-![SignUp](gallery/signUp.png)
-
+<img src="gallery/signUp.png" width="320px" alt="signUp">
 
 - ログイン<br>
-![SignIn](gallery/signIn.png)
-
+<img src="gallery/signIn.png" width="320px" alt="signIn">
 
 - 最初のログインユーザーのメイン画面<br>
-![firstUserPage](gallery/firstUserAccess.png)
-
+<img src="gallery/firstUserAccess.png" width="320px" alt="firstUserPage">
 
 - 投稿画面<br>
-![postView](gallery/postView.png)
-
+<img src="gallery/postView.png" width="320px" alt="postView">
 
 - 動画の選択<br>
-![selectMovie](gallery/selectMovie.png)
-
+<img src="gallery/selectMovie.png" width="320px" alt="selectMovie">
 
 - 説明文の記述<br>
-![writeBody](gallery/writeBody.png)
-
+<img src="gallery/writeBody.png" width="320px" alt="writeBody">
 
 - メイン画面（動画の再生、削除ができる）<br>
-![mainView1](gallery/mainView1.png)
-
+<img src="gallery/mainView1.png" width="320px" alt="mainView1">
 
 - 他ユーザーは削除できない（削除ボタンが消える）<br>
-![mainView2](gallery/mainView2.png)
-
+<img src="gallery/mainView2.png" width="320px" alt="mainView2">
 
 ### 制作期間
 #### 全工数
