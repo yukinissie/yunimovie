@@ -3,5 +3,5 @@
 /html/movie/admin/*
 !/html/movie/admin/.gitkeep
 /html/phpinfo.php
-
+/var
 
