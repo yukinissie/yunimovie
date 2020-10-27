@@ -111,7 +111,3 @@
 #### Next
 - railsで作り直す（かも）
 
-## MIT-LICENSE
-Copyright (c) 2020 Yuki Nishi<br>
-Released under the MIT license<br>
-https://github.com/yukinissie/YuniMovie/blob/master/MIT-LICENSE.txt
