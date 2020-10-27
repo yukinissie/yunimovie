@@ -4,4 +4,4 @@
 !/html/movie/admin/.gitkeep
 /html/phpinfo.php
 /var
-
+/db/mysql_data/phpmyadmin/
