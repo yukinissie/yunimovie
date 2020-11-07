@@ -15,6 +15,10 @@ services:
       - '8080:80'
     depends_on:
       - db
+    environment:
+      MYSQL_DATABASE: $MYSQL_DATABASE
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
   db:
     container_name: yunimovie_mysql
     build:
@@ -30,10 +34,10 @@ services:
     ports:
       - '3306:3306'
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: yunimovie
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+      MYSQL_DATABASE: $MYSQL_DATABASE
       TZ: Asia/Tokyo
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -41,12 +45,7 @@ services:
     environment:
       - PMA_ARBITRARY=1
       - PMA_HOST=db
-      - PMA_USER=root
-      - PMA_PASSWORD=root
     depends_on:
       - db
     ports:
       - 4040:80
-    volumes:
-      - ./phpmyadmin/sessions:/sessions
-      - ./phpmyadmin/phpmyadmin:/var/www/html

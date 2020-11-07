@@ -1,7 +1,7 @@
 <?php
 
-//ini_set('display_errors', 1);
+ini_set('display_errors', 1);
 
-define('DSN', 'mysql:host=localhost;dbname=yunimovie;charset=utf8mb4;');
-define('DB_USER', 'root');
-define('DB_PASS', 'root');
+define('DSN', 'mysql:host=localhost;dbname='.getenv('MYSQL_DATABASE').';charset=utf8mb4;');
+define('DB_USER', getenv('MYSQL_USER'));
+define('DB_PASS', getenv('MYSQL_PASSWORD'));
