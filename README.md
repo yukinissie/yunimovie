@@ -205,7 +205,7 @@ CREATE TABLE `yunimovie`.`movie` ( `id` INT NOT NULL AUTO_INCREMENT , `title` VA
 以上で構築完了です。
 以下URLです。
 
-http://localhost:8080
+App: http://localhost:8080
 
 
-http://localhost:4040 user: <MYSQL_USER>, pass: <MYSQL_PASSWORD>
+phpMyAdmin: http://localhost:4040 user: <MYSQL_USER>, pass: <MYSQL_PASSWORD>
