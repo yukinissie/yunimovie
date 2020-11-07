@@ -150,7 +150,7 @@ mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '<
 ```
 
 ```
-mysql> ALTER USER '<MYSQL_USERで設定した値>'@'localhost' IDENTIFIED WITH mysql_native_password BY '<MYSQL_PASSWORDで設定した値>';
+mysql> ALTER USER '<MYSQL_USERで設定した値>'@'%' IDENTIFIED WITH mysql_native_password BY '<MYSQL_PASSWORDで設定した値>';
 ```
 
 以下のコマンドの結果で、rootや<MYSQL_USER>のpluginカラムがmysql_native_passwordになっていればOKです。
@@ -204,5 +204,5 @@ CREATE TABLE `yunimovie`.`userData` ( `id` INT NOT NULL AUTO_INCREMENT , `name` 
 |user_id|id||いいえ||
 
 ```sql
-CREATE TABLE `yunimovie`.`movie` ( `id` INT NOT NULL AUTO_INCREMENT , `title` VARCHAR(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL , `url_movie` VARCHAR(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL , `url_thumbnail` VARCHAR(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL , `explanation` TEXT NOT NULL , `upLoadDate` DATETIME NOT NULL , `viewCount` INT NOT NULL , `user` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+CREATE TABLE `yunimovie`.`movie` ( `id` INT NOT NULL AUTO_INCREMENT , `title` VARCHAR(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL , `url_movie` VARCHAR(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL , `url_thumbnail` VARCHAR(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL , `explanation` TEXT NOT NULL , `upLoadDate` DATETIME NOT NULL , `viewCount` INT NOT NULL , `user_id` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
 ```
