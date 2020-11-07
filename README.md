@@ -42,31 +42,34 @@
 
 ### ギャラリー
 - 最初のゲストユーザーのメイン画面<br>
-<img src="gallery/firstGuestAccess.png" width="320px" alt="firstGuestUserPage">
+<img src="https://user-images.githubusercontent.com/38881185/98431482-34d12780-20f9-11eb-933b-4d0145091372.png" width="320px" alt="firstGuestUserPage">
 
 - サインアップ<br>
-<img src="gallery/signUp.png" width="320px" alt="signUp">
+<img src="https://user-images.githubusercontent.com/38881185/98431500-41558000-20f9-11eb-85dc-9376c11b3e9a.png" width="320px" alt="signUp">
 
 - ログイン<br>
-<img src="gallery/signIn.png" width="320px" alt="signIn">
+<img src="https://user-images.githubusercontent.com/38881185/98431499-40bce980-20f9-11eb-885a-7ee590dc3f26.png" width="320px" alt="signIn">
 
 - 最初のログインユーザーのメイン画面<br>
-<img src="gallery/firstUserAccess.png" width="320px" alt="firstUserPage">
+<img src="https://user-images.githubusercontent.com/38881185/98431486-369aeb00-20f9-11eb-85fe-3559cf24341f.png" width="320px" alt="firstUserPage">
 
 - 投稿画面<br>
-<img src="gallery/postView.png" width="320px" alt="postView">
+<img src="https://user-images.githubusercontent.com/38881185/98431496-3ef32600-20f9-11eb-9d1b-46caa1ce10eb.png" width="320px" alt="postView">
 
 - 動画の選択<br>
-<img src="gallery/selectMovie.png" width="320px" alt="selectMovie">
+<img src="https://user-images.githubusercontent.com/38881185/98431498-40245300-20f9-11eb-84b5-fbe1ceb5a823.png" width="320px" alt="selectMovie">
 
 - 説明文の記述<br>
-<img src="gallery/writeBody.png" width="320px" alt="writeBody">
+<img src="https://user-images.githubusercontent.com/38881185/98431502-41ee1680-20f9-11eb-83fc-69c84f641ada.png" width="320px" alt="writeBody">
 
 - メイン画面（動画の再生、削除ができる）<br>
-<img src="gallery/mainView1.png" width="320px" alt="mainView1">
+<img src="https://user-images.githubusercontent.com/38881185/98431488-3864ae80-20f9-11eb-9655-f5b816db33a5.png" width="320px" alt="mainView1">
 
-- 他ユーザーは削除できない（削除ボタンが消える）<br>
-<img src="gallery/mainView2.png" width="320px" alt="mainView2">
+- ユーザーは他のユーザーの動画を削除できない（削除ボタンが消える）<br>
+<img src="https://user-images.githubusercontent.com/38881185/98431493-3bf83580-20f9-11eb-856e-70f54a5655a1.png" width="320px" alt="mainView2">
+
+- ログアウト
+<img src="https://user-images.githubusercontent.com/38881185/98431487-37cc1800-20f9-11eb-9943-1b73e5509411.png" width="320px" alt="logout">
 
 ### 制作期間
 #### 全工数
@@ -102,6 +105,10 @@
 #### 2020 5/1
 - タイトル、説明欄にデフォルト値を設定
 - 開発停止
+
+#### 2020 11/7
+- .envの作成
+- 構築方法の記載
 
 #### Next
 - railsで作り直す（かも）
