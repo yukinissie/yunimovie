@@ -22,10 +22,7 @@
 - プレーンなPHP製。
 - セッションやクッキーとかがなんとなくわかった。
 - 「テストを書く」の意味を作りきってから理解した。
-- SQLインジェクション、XSS、CSRF対策を実装できた。
-
-**※注意**<br>
-**phpmyadminコンテナが4040ポートで公開されているので、セキュリティーはガバガバです。**
+- SQLインジェクション、XSS、CSRF対策を実装できた(?)
 
 
 ### 将来したいこと
@@ -38,7 +35,7 @@
 - UI/UX体験の向上
 - アップロード中がわかるUI
 - 新規登録直後のルーティング？の設計と構築
-- テスト概念の導入
+- テストの導入
 - CircleCIとの連携
 - AWSにてデプロイ
 - etc..
@@ -204,3 +201,11 @@ CREATE TABLE `yunimovie`.`userData` ( `id` INT NOT NULL AUTO_INCREMENT , `name` 
 ```sql
 CREATE TABLE `yunimovie`.`movie` ( `id` INT NOT NULL AUTO_INCREMENT , `title` VARCHAR(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL , `url_movie` VARCHAR(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL , `url_thumbnail` VARCHAR(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL , `explanation` TEXT NOT NULL , `upLoadDate` DATETIME NOT NULL , `viewCount` INT NOT NULL , `user_id` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
 ```
+
+以上で構築完了です。
+以下URLです。
+
+http://localhost:8080
+
+
+http://localhost:4040 user: <MYSQL_USER>, pass: <MYSQL_PASSWORD>
