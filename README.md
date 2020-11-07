@@ -111,7 +111,77 @@
 #### Next
 - railsで作り直す（かも）
 
-## MIT-LICENSE
-Copyright (c) 2020 Yuki Nishi<br>
-Released under the MIT license<br>
-https://github.com/yukinissie/YuniMovie/blob/master/MIT-LICENSE.txt
+
+### 構築方法
+#### Docker
+
+```
+$ docker-compose up -d --build
+```
+
+#### DBの初期化
+DBのマイグレーションシステムはないので、手動でテーブルを用意する必要があります。
+
+##### MySQLの設定
+まずは、PHPのための設定。
+
+
+```
+$ docker conatiner exec yunimovie_mysql mysql -u root -p
+Enter password: root
+```
+
+以下を実行します。
+
+```
+mysql> ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'root';
+```
+
+```
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';
+```
+
+以下のコマンドの結果で、rootのpluginカラムがmysql_native_passwordになっていればOKです。
+
+```
+
+mysql> select user, host, plugin from user;
++------------------+-----------+-----------------------+
+| user             | host      | plugin                |
++------------------+-----------+-----------------------+
+| root             | %         | mysql_native_password |
+| mysql.infoschema | localhost | caching_sha2_password |
+| mysql.session    | localhost | caching_sha2_password |
+| mysql.sys        | localhost | caching_sha2_password |
+| root             | localhost | mysql_native_password |
++------------------+-----------+-----------------------+
+5 rows in set (0.00 sec)
+
+```
+
+##### テーブルの作成
+phpmyadminなどから以下のテーブルを作成します。
+yunimovieデータベースに作成します。（yunimovieDB自体はdockercompose.ymlで作成済み）
+
+- 作成するDB
+  - userData
+  - movie
+
+###### userData
+|名前|データ型|照合順序|NULL|その他|
+|---|---|---|---|---|
+|id|int||いいえ|AUTO_INCERMENT|
+|name|varchar(256)|utf8mb4_0900_ai_ci|いいえ||
+|password|varchar(256)|utf8mb4_0900_ai_ci|いいえ||
+
+###### movie
+|名前|データ型|照合順序|NULL|その他|
+|---|---|---|---|---|
+|id|int||いいえ|AUTO_INCERMENT|
+|title|varchar(256)|utf8mb4_0900_ai_ci|いいえ||
+|url_movie|varchar(256)|utf8mb4_0900_ai_ci|いいえ||
+|url_thumbnail|varchar(256)|utf8mb4_0900_ai_ci|いいえ||
+|explanation|text|utf8mb4_0900_ai_ci|いいえ||
+|upLoadDate|datetime||いいえ||
+|viewCount|id||いいえ||
+|user_id|id||いいえ||

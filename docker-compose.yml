@@ -12,7 +12,7 @@ services:
       - ./html:/var/www/html
       - ./var/run/mysqld/:/var/run/mysqld/
     ports:
-      - "8080:80"
+      - '8080:80'
     depends_on:
       - db
   db:
@@ -28,13 +28,13 @@ services:
       - ./db/mysql_conf/:/etc/mysql/conf.d
       - ./var/run/mysqld/:/var/run/mysqld/
     ports:
-      - "3306:3306"
+      - '3306:3306'
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=yunimovie
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=root
-      - TZ=Asia/Tokyo
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: yunimovie
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      TZ: Asia/Tokyo
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     restart: always

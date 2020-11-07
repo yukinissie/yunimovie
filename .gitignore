@@ -1,7 +1,12 @@
-/html/img/admin/*
-!/html/img/admin/.gitkeep
-/html/movie/admin/*
-!/html/movie/admin/.gitkeep
+/html/img/*
+!/html/img/.gitkeep
+/html/movie/*
+!/html/movie/.gitkeep
 /html/phpinfo.php
 /var
-/db/mysql_data/phpmyadmin/
+/db
+/html/dev
+/html/src
+/html/test
+/html/vender
+/phpmyadmin
