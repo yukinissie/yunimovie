@@ -146,7 +146,7 @@ Enter password: <MYSQL_ROOT_PASSWORDで設定した値>
 ALTER USER '<MYSQL_USERで設定した値>'@'%' IDENTIFIED WITH mysql_native_password BY '<MYSQL_PASSWORDで設定した値>';
 ```
 
-以下のコマンドの結果で、rootや<MYSQL_USER>のpluginカラムがmysql_native_passwordになっていればOKです。
+以下のコマンドの結果で、<MYSQL_USERで設定した値>のpluginカラムがmysql_native_passwordになっていればOKです。
 
 ```
 mysql> use mysql;
@@ -155,11 +155,12 @@ mysql> select user, host, plugin from user;
 +------------------+-----------+-----------------------+
 | user             | host      | plugin                |
 +------------------+-----------+-----------------------+
-| root             | %         | mysql_native_password |
+| root             | %         | caching_sha2_password |
+| yunimovie        | %         | mysql_native_password |
 | mysql.infoschema | localhost | caching_sha2_password |
 | mysql.session    | localhost | caching_sha2_password |
 | mysql.sys        | localhost | caching_sha2_password |
-| root             | localhost | mysql_native_password |
+| root             | localhost | caching_sha2_password |
 +------------------+-----------+-----------------------+
 5 rows in set (0.00 sec)
 
