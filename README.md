@@ -141,16 +141,9 @@ Enter password: <MYSQL_ROOT_PASSWORDで設定した値>
 
 以下を実行します。
 
-```
-mysql> ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY '<MYSQL_ROOT_PASSWORDで設定した値>';
-```
 
-```
-mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '<MYSQL_ROOT_PASSWORDで設定した値>';
-```
-
-```
-mysql> ALTER USER '<MYSQL_USERで設定した値>'@'%' IDENTIFIED WITH mysql_native_password BY '<MYSQL_PASSWORDで設定した値>';
+```sql
+ALTER USER '<MYSQL_USERで設定した値>'@'%' IDENTIFIED WITH mysql_native_password BY '<MYSQL_PASSWORDで設定した値>';
 ```
 
 以下のコマンドの結果で、rootや<MYSQL_USER>のpluginカラムがmysql_native_passwordになっていればOKです。
@@ -188,6 +181,10 @@ yunimovieデータベースに作成します。（yunimovieDB自体はdockercom
 |password|varchar(256)|utf8mb4_0900_ai_ci|いいえ||
 
 ```
+mysql> use <MYSQL_DATABASEで設定した値>
+```
+
+```sql
 CREATE TABLE `yunimovie`.`userData` ( `id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL , `password` VARCHAR(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
 ```
 
