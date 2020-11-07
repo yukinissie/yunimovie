@@ -183,7 +183,7 @@ mysql> use <MYSQL_DATABASEで設定した値>
 ```
 
 ```sql
-CREATE TABLE `yunimovie`.`userData` ( `id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL , `password` VARCHAR(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+CREATE TABLE `yunimovie`.`userData` ( `id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(256) NOT NULL , `password` VARCHAR(256) NOT NULL , PRIMARY KEY (`id`)) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci ENGINE = InnoDB;
 ```
 
 ###### movie
@@ -199,7 +199,7 @@ CREATE TABLE `yunimovie`.`userData` ( `id` INT NOT NULL AUTO_INCREMENT , `name` 
 |user_id|id||いいえ||
 
 ```sql
-CREATE TABLE `yunimovie`.`movie` ( `id` INT NOT NULL AUTO_INCREMENT , `title` VARCHAR(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL , `url_movie` VARCHAR(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL , `url_thumbnail` VARCHAR(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL , `explanation` TEXT NOT NULL , `upLoadDate` DATETIME NOT NULL , `viewCount` INT NOT NULL , `user_id` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+CREATE TABLE `yunimovie`.`movie` ( `id` INT NOT NULL AUTO_INCREMENT , `title` VARCHAR(256) NOT NULL , `url_movie` VARCHAR(256) NOT NULL , `url_thumbnail` VARCHAR(256) NOT NULL , `explanation` TEXT NOT NULL , `upLoadDate` DATETIME NOT NULL , `viewCount` INT NOT NULL , `user_id` INT NOT NULL , PRIMARY KEY (`id`)) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci ENGINE = InnoDB;
 ```
 
 以上で構築完了です。
