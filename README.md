@@ -177,8 +177,8 @@ yunimovieデータベースに作成します。（yunimovieDB自体はdockercom
 |名前|データ型|照合順序|NULL|その他|
 |---|---|---|---|---|
 |id|int||いいえ|AUTO_INCERMENT|
-|name|varchar(256)|utf8mb4_0900_ai_ci|いいえ||
-|password|varchar(256)|utf8mb4_0900_ai_ci|いいえ||
+|name|varchar(256)|utf8mb4_general_ci|いいえ||
+|password|varchar(256)|utf8mb4_general_ci|いいえ||
 
 ```
 mysql> use <MYSQL_DATABASEで設定した値>
@@ -192,10 +192,10 @@ CREATE TABLE `yunimovie`.`userData` ( `id` INT NOT NULL AUTO_INCREMENT , `name` 
 |名前|データ型|照合順序|NULL|その他|
 |---|---|---|---|---|
 |id|int||いいえ|AUTO_INCERMENT|
-|title|varchar(256)|utf8mb4_0900_ai_ci|いいえ||
-|url_movie|varchar(256)|utf8mb4_0900_ai_ci|いいえ||
-|url_thumbnail|varchar(256)|utf8mb4_0900_ai_ci|いいえ||
-|explanation|text|utf8mb4_0900_ai_ci|いいえ||
+|title|varchar(256)|utf8mb4_general_ci|いいえ||
+|url_movie|varchar(256)|utf8mb4_general_ci|いいえ||
+|url_thumbnail|varchar(256)|utf8mb4_general_ci|いいえ||
+|explanation|text|utf8mb4_general_ci|いいえ||
 |upLoadDate|datetime||いいえ||
 |viewCount|id||いいえ||
 |user_id|id||いいえ||
