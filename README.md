@@ -171,8 +171,9 @@ mysql> select user, host, plugin from user;
 ```
 
 ##### テーブルの作成
-phpmyadminなどから以下のテーブルを作成します。
-yunimovieデータベースに作成します。（yunimovieDB自体はdockercompose.ymlで作成済み）
+phpmyadminなどから以下のテーブルをyunimovieデータベースに作成します。
+
+（yunimovieDB自体はdockercompose.ymlで作成済み）
 
 - 作成するテーブル
   - userData
