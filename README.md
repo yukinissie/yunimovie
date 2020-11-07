@@ -111,6 +111,16 @@
 
 
 ### 構築方法
+#### .env
+以下の内容のような.envファイルをプロジェクトのルートに作成します。
+
+```env:.env
+MYSQL_ROOT_PASSWORD=password
+MYSQL_USER=yunimovie
+MYSQL_PASSWORD=password
+MYSQL_DATABASE=yunimovie
+```
+
 #### Docker
 
 ```
@@ -125,23 +135,28 @@ DBのマイグレーションシステムはないので、手動でテーブル
 
 
 ```
-$ docker conatiner exec yunimovie_mysql mysql -u root -p
-Enter password: root
+$ docker container exec -it yunimovie_mysql mysql -u root -p
+Enter password: <MYSQL_ROOT_PASSWORDで設定した値>
 ```
 
 以下を実行します。
 
 ```
-mysql> ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'root';
+mysql> ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY '<MYSQL_ROOT_PASSWORDで設定した値>';
 ```
 
 ```
-mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '<MYSQL_ROOT_PASSWORDで設定した値>';
 ```
 
-以下のコマンドの結果で、rootのpluginカラムがmysql_native_passwordになっていればOKです。
+```
+mysql> ALTER USER '<MYSQL_USERで設定した値>'@'localhost' IDENTIFIED WITH mysql_native_password BY '<MYSQL_PASSWORDで設定した値>';
+```
+
+以下のコマンドの結果で、rootや<MYSQL_USER>のpluginカラムがmysql_native_passwordになっていればOKです。
 
 ```
+mysql> use mysql;
 
 mysql> select user, host, plugin from user;
 +------------------+-----------+-----------------------+
@@ -172,6 +187,10 @@ yunimovieデータベースに作成します。（yunimovieDB自体はdockercom
 |name|varchar(256)|utf8mb4_0900_ai_ci|いいえ||
 |password|varchar(256)|utf8mb4_0900_ai_ci|いいえ||
 
+```
+CREATE TABLE `yunimovie`.`userData` ( `id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL , `password` VARCHAR(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+```
+
 ###### movie
 |名前|データ型|照合順序|NULL|その他|
 |---|---|---|---|---|
@@ -183,3 +202,7 @@ yunimovieデータベースに作成します。（yunimovieDB自体はdockercom
 |upLoadDate|datetime||いいえ||
 |viewCount|id||いいえ||
 |user_id|id||いいえ||
+
+```sql
+CREATE TABLE `yunimovie`.`movie` ( `id` INT NOT NULL AUTO_INCREMENT , `title` VARCHAR(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL , `url_movie` VARCHAR(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL , `url_thumbnail` VARCHAR(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL , `explanation` TEXT NOT NULL , `upLoadDate` DATETIME NOT NULL , `viewCount` INT NOT NULL , `user` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+```
