@@ -3,7 +3,8 @@
 /html/movie/*
 !/html/movie/.gitkeep
 /html/phpinfo.php
-/var
+/var/run/mysqld/*
+!/var/run/mysqld/.gitkeep
 /db
 /html/dev
 /html/src
