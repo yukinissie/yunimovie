@@ -1,0 +1,6 @@
+{
+  "extends": ["config:base"],
+  "baseBranches": ["main"],
+  "timezone": "Asia/Tokyo",
+  "labels": ["renovate"]
+}
